@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import image from "../assets/foto.JPG";
+import image from "../assets/foto3.JPG";
 import savethedate from "../assets/safethedate.svg";
 import styled from "styled-components";
 import DateCountdown from "react-date-countdown-timer";
