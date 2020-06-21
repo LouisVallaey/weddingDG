@@ -71,21 +71,22 @@ const CodeBox = styled.div`
   align-items: center;
   flex-direction: column;
   font-family: "Roboto", sans-serif;
-  form {
-    display: flex;
-    flex-direction: column;
-  }
   input {
     border: 1px solid black;
     height: 30px;
+    width: 150px;
     margin-bottom: 10px;
     outline: none;
+    box-sizing: border-box;
   }
 `;
-const Button = styled.input`
+const Button = styled.button`
+  width: 150px;
+  height: 30px;
   background-color: black;
   color: white;
   border: none;
+  cursor: pointer;
 `;
 function App() {
   const [passwordcorrect, setpasswordcorrect] = useState(false);
@@ -96,6 +97,7 @@ function App() {
   function handleChange(event) {
     setInput(event.target.value);
   }
+
   function handleSubmit() {
     if (input === code) {
       setpasswordcorrect(true);
@@ -107,10 +109,8 @@ function App() {
         <FlexContainer>
           <CodeBox>
             <p>ENTER CODE:</p>
-            <form onSubmit={handleSubmit}>
-              <input type="text" value={input} onChange={handleChange} />
-              <Button type="submit" value="Submit" />
-            </form>
+            <input type="text" value={input} onChange={handleChange} />
+            <Button onClick={handleSubmit}>Submit</Button>
           </CodeBox>
         </FlexContainer>
       )}
