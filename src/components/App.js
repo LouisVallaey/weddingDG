@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import image from "../assets/foto.JPG";
 import savethedate from "../assets/safethedate.svg";
@@ -65,24 +65,81 @@ const Copyright = styled.div`
   @media (max-width: 700px) {
   }
 `;
+const CodeBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    border: 1px solid black;
+    height: 30px;
+    margin-bottom: 10px;
+    outline: none;
+  }
+`;
+const Button = styled.input`
+  background-color: black;
+  color: white;
+  border: none;
+`;
 function App() {
+  const [passwordcorrect, setpasswordcorrect] = useState(false);
+  const [input, setInput] = useState("");
+  const code = "0301";
   document.title = "Save The Date";
+
+  function handleChange(event) {
+    setInput(event.target.value);
+  }
+  function handleSubmit() {
+    if (input === code) {
+      setpasswordcorrect(true);
+    }
+  }
   return (
-    <FlexContainer>
-      <Image></Image>
-      <Info>
-        <Head></Head>
-        <DateCountdown
-          dateTo="Juli 03, 2021 00:00:00"
-          mostSignificantFigure="day"
-          locales={["year", "month", "Day", "Hr", "Min", "Sec"]}
-          locales_plural={["years", "months", "Days", "Hrs", "Mins", "Secs"]}
-        />
-      </Info>
-      <Copyright>
-        Made by <a href="http://louisvallaey.be">louisvallaey.be</a>
-      </Copyright>
-    </FlexContainer>
+    <>
+      {!passwordcorrect && (
+        <FlexContainer>
+          <CodeBox>
+            <p>ENTER CODE:</p>
+            <form onSubmit={handleSubmit}>
+              <input type="text" value={input} onChange={handleChange} />
+              <Button type="submit" value="Submit" />
+            </form>
+          </CodeBox>
+        </FlexContainer>
+      )}
+
+      {passwordcorrect && (
+        <FlexContainer>
+          <Image></Image>
+          <Info>
+            <Head></Head>
+            <DateCountdown
+              dateTo="Juli 03, 2021 00:00:00"
+              mostSignificantFigure="day"
+              locales={["year", "month", "Day", "Hr", "Min", "Sec"]}
+              locales_plural={[
+                "years",
+                "months",
+                "Days",
+                "Hrs",
+                "Mins",
+                "Secs",
+              ]}
+            />
+          </Info>
+          <Copyright>
+            Made by <a href="http://louisvallaey.be">louisvallaey.be</a>
+          </Copyright>
+        </FlexContainer>
+      )}
+    </>
   );
 }
 
